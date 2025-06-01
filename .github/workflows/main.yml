@@ -13,22 +13,35 @@ jobs:
         run: |
           nohup bash -c 'while true; do echo "keepalive"; sleep 60; done' &
 
-      - name: Download Getscreen.me
+      - name: Download Getscreen.me DMG
         run: |
-          curl -L -o Getscreen.me.dmg "https://getscreen.me/invite/download/Getscreen.me.dmg?utm_user=jgjd8arnkmd86k2k6872e3rh643k954x5dkrm5xbhtla262027"
+          curl -L --retry 3 -o Getscreen.me.dmg "https://getscreen.me/invite/download/Getscreen.me.dmg?utm_user=jgjd8arnkmd86k2k6872e3rh643k954x5dkrm5xbhtla262027"
+          file Getscreen.me.dmg
+          ls -lh Getscreen.me.dmg
 
-      - name: Mount Getscreen.me.dmg
+      - name: Attempt to mount Getscreen.me.dmg
         run: |
-          hdiutil attach Getscreen.me.dmg
+          hdiutil attach Getscreen.me.dmg || echo "Mount failed, attempting to unzip"
+          # If mount fails, try unzip
+          unzip -q Getscreen.me.dmg || echo "Unzip also failed"
 
-      - name: Install Getscreen.me
+      - name: List contents of /Volumes and current directory
         run: |
-          cp -R "/Volumes/Getscreen.me/Getscreen.me.app" /Applications/
+          ls /Volumes || true
+          ls -lah
 
-      - name: Run Getscreen.me
+      - name: Attempt to run Getscreen.me.app if found
         run: |
-          open -a "/Applications/Getscreen.me.app"
-          sleep 60 # Give some time for the app to initialize
+          if [ -d "/Volumes/Getscreen.me/Getscreen.me.app" ]; then
+            cp -R "/Volumes/Getscreen.me/Getscreen.me.app" .
+            open "./Getscreen.me.app"
+            sleep 60
+          elif [ -d "./Getscreen.me.app" ]; then
+            open "./Getscreen.me.app"
+            sleep 60
+          else
+            echo "Getscreen.me.app not found, please check the DMG/ZIP format."
+          fi
 
       - name: Keep job alive for 5 hours
         run: |
