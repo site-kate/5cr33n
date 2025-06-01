@@ -23,6 +23,16 @@ jobs:
         run: |
           hdiutil attach Getscreen.me.dmg
 
+      - name: List Volumes and DMG Contents (Debug)
+        run: |
+          ls /Volumes/
+          for d in /Volumes/*; do
+            echo "Contents of $d:"
+            ls -l "$d"
+          done
+
+      # IMPORTANT: After running once, check the logs of the previous step.
+      # Replace <CORRECT_VOLUME_NAME> and <CORRECT_APP_NAME> below with values from the logs, e.g. "Getscreen.me" and "Getscreen.me.app"
       - name: Copy Getscreen.me.app to /Applications
         run: |
           cp -R "/Volumes/Getscreen.me/Getscreen.me.app" /Applications/
@@ -37,7 +47,7 @@ jobs:
 
       - name: Unmount Getscreen.me.dmg
         run: |
-          hdiutil detach "/Volumes/Getscreen.me"
+          hdiutil detach "/Volumes/Getscreen.me" || true
 
       - name: Keep job alive for 5 hours
         run: |
