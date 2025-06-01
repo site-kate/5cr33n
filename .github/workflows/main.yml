@@ -15,14 +15,13 @@ jobs:
 
       - name: Download Getscreen.me DMG
         run: |
-          curl -L --retry 3 -o Getscreen.me.dmg "https://getscreen.me/invite/download/Getscreen.me.dmg?utm_user=jgjd8arnkmd86k2k6872e3rh643k954x5dkrm5xbhtla262027"
+          curl -L --retry 3 -o Getscreen.me.dmg "https://getscreen.me/download/Getscreen.me.dmg"
           file Getscreen.me.dmg
           ls -lh Getscreen.me.dmg
 
       - name: Attempt to mount Getscreen.me.dmg
         run: |
           hdiutil attach Getscreen.me.dmg || echo "Mount failed, attempting to unzip"
-          # If mount fails, try unzip
           unzip -q Getscreen.me.dmg || echo "Unzip also failed"
 
       - name: List contents of /Volumes and current directory
