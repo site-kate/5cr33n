@@ -35,6 +35,10 @@ jobs:
         run: |
           cp -R "/Volumes/Getscreen.me Installer/Getscreen.me.app" /Applications/
 
+      - name: List /Applications Before Daemon Install
+        run: |
+          ls -l /Applications/
+
       - name: Install Getscreen.me Daemon
         run: |
           /Applications/Getscreen.me.app/Contents/MacOS/Getscreen.me -install
