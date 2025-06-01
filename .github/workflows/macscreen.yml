@@ -35,10 +35,6 @@ jobs:
         run: |
           cp -R "/Volumes/Getscreen.me Installer/Getscreen.me.app" /Applications/
 
-      - name: Install Getscreen.me Daemon
-        run: |
-          /Applications/Getscreen.me.app/Contents/MacOS/Getscreen.me -install
-
       - name: Register Getscreen.me Daemon
         run: |
           /Applications/Getscreen.me.app/Contents/MacOS/Getscreen.me -register site-cat@proton.me
