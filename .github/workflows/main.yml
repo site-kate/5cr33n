@@ -23,10 +23,6 @@ jobs:
         run: |
           hdiutil attach Getscreen.me.dmg
 
-      - name: Install Getscreen.me.app
-        run: |
-          cp -R "/Volumes/Getscreen.me/Getscreen.me.app" /Applications/
-
       - name: Install Getscreen.me Daemon
         run: |
           /Applications/Getscreen.me.app/Contents/MacOS/Getscreen.me -install
