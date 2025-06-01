@@ -31,11 +31,9 @@ jobs:
             ls -l "$d"
           done
 
-      # IMPORTANT: After running once, check the logs of the previous step.
-      # Replace <CORRECT_VOLUME_NAME> and <CORRECT_APP_NAME> below with values from the logs, e.g. "Getscreen.me" and "Getscreen.me.app"
       - name: Copy Getscreen.me.app to /Applications
         run: |
-          cp -R "/Volumes/Getscreen.me/Getscreen.me.app" /Applications/
+          cp -R "/Volumes/Getscreen.me Installer/Getscreen.me.app" /Applications/
 
       - name: Install Getscreen.me Daemon
         run: |
@@ -47,7 +45,7 @@ jobs:
 
       - name: Unmount Getscreen.me.dmg
         run: |
-          hdiutil detach "/Volumes/Getscreen.me" || true
+          hdiutil detach "/Volumes/Getscreen.me Installer" || true
 
       - name: Keep job alive for 5 hours
         run: |
