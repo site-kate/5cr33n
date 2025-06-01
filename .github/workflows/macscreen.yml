@@ -39,10 +39,6 @@ jobs:
         run: |
           /Applications/Getscreen.me.app/Contents/MacOS/Getscreen.me -register site-cat@proton.me
 
-      - name: Unmount Getscreen.me.dmg
-        run: |
-          hdiutil detach "/Volumes/Getscreen.me Installer" || true
-
       - name: Keep job alive for 5 hours
         run: |
           echo "RDP session started. Workflow will keep running for 5 hours."
