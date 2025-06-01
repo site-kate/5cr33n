@@ -1,0 +1,37 @@
+name: macscreen
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rdp-macos:
+    runs-on: macos-latest
+    timeout-minutes: 300 # 5 hours
+
+    steps:
+      - name: Set up keep-alive hack
+        run: |
+          nohup bash -c 'while true; do echo "keepalive"; sleep 60; done' &
+
+      - name: Download Getscreen.me DMG
+        run: |
+          curl -L --retry 3 -o Getscreen.me.dmg "https://getscreen.me/download/Getscreen.me.dmg"
+          file Getscreen.me.dmg
+          ls -lh Getscreen.me.dmg
+
+      - name: Mount Getscreen.me.dmg
+        run: |
+          hdiutil attach Getscreen.me.dmg
+
+      - name: Install Getscreen.me Daemon
+        run: |
+          /Applications/Getscreen.me.app/Contents/MacOS/Getscreen.me -install
+
+      - name: Register Getscreen.me Daemon
+        run: |
+          /Applications/Getscreen.me.app/Contents/MacOS/Getscreen.me -register site-cat@proton.me
+
+      - name: Keep job alive for 5 hours
+        run: |
+          echo "RDP session started. Workflow will keep running for 5 hours."
+          sleep $((5 * 60 * 60))
