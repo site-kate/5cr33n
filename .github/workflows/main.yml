@@ -1,0 +1,36 @@
+name: RDP Access via Getscreen.me on macOS Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rdp-macos:
+    runs-on: macos-latest
+    timeout-minutes: 300 # 5 hours
+
+    steps:
+      - name: Set up keep-alive hack
+        run: |
+          nohup bash -c 'while true; do echo "keepalive"; sleep 60; done' &
+
+      - name: Download Getscreen.me
+        run: |
+          curl -L -o Getscreen.me.dmg "https://getscreen.me/invite/download/Getscreen.me.dmg?utm_user=jgjd8arnkmd86k2k6872e3rh643k954x5dkrm5xbhtla262027"
+
+      - name: Mount Getscreen.me.dmg
+        run: |
+          hdiutil attach Getscreen.me.dmg
+
+      - name: Install Getscreen.me
+        run: |
+          cp -R "/Volumes/Getscreen.me/Getscreen.me.app" /Applications/
+
+      - name: Run Getscreen.me
+        run: |
+          open -a "/Applications/Getscreen.me.app"
+          sleep 60 # Give some time for the app to initialize
+
+      - name: Keep job alive for 5 hours
+        run: |
+          echo "RDP session started. Workflow will keep running for 5 hours."
+          sleep $((5 * 60 * 60))
