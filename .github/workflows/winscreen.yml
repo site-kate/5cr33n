@@ -57,19 +57,19 @@ jobs:
           Write-Host "GetScreen access link (valid while workflow runs):"
           Write-Host $link
 
-      - name: Download hakuneko-desktop_6.1.7_windows-setup_amd64.exe to Desktop
+      - name: Download hakuneko to Desktop
         shell: pwsh
         run: |
           $desktop = [Environment]::GetFolderPath('Desktop')
           Invoke-WebRequest -Uri "https://github.com/manga-download/hakuneko/releases/download/v6.1.7/hakuneko-desktop_6.1.7_windows-setup_amd64.exe" -OutFile "$desktop\hakuneko-desktop_6.1.7_windows-setup_amd64.exe"
 
-      - name: Download ZenDownloader-1.1.14.exe to Desktop
+      - name: Download ZenDownloader to Desktop
         shell: pwsh
         run: |
           $desktop = [Environment]::GetFolderPath('Desktop')
-          Invoke-WebRequest -Uri "https://github.com/NobilityDeviant/ZenDownloader/releases/download/1.1.14/ZenDownloader-1.1.14.exe" -OutFile "$desktop\ZenDownloader-1.1.14.exe"
+          Invoke-WebRequest -Uri "https://github.com/NobilityDeviant/ZenDownloader/releases/download/1.2.7/ZenDownloader-windows-amd64.zip" -OutFile "$desktop\ZenDownloader.zip"
 
-      - name: Download rustdesk-1.4.0-x86_64.exe to Desktop
+      - name: Download rustdesk to Desktop
         shell: pwsh
         run: |
           $desktop = [Environment]::GetFolderPath('Desktop')
