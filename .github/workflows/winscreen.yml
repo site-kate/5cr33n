@@ -73,7 +73,7 @@ jobs:
         shell: pwsh
         run: |
           $desktop = [Environment]::GetFolderPath('Desktop')
-          Invoke-WebRequest -Uri "https://github.com/rustdesk/rustdesk/releases/download/1.4.0/rustdesk-1.4.0-x86_64.exe" -OutFile "$desktop\rustdesk-1.4.0-x86_64.exe"
+          Invoke-WebRequest -Uri "https://github.com/rustdesk/rustdesk/releases/download/1.4.2/rustdesk-1.4.2-x86_64.exe" -OutFile "$desktop\rustdesk.exe"
 
       - name: Keep runner alive for 4 hours
         run: |
